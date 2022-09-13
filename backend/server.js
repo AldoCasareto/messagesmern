@@ -5,7 +5,8 @@ import { errorHandler } from './middleware/errorMiddleware.js';
 import colors from 'colors';
 import { connectDb } from './config/db.js';
 
-import { router } from './routes/goal.routes.js';
+import { goalRouter } from './routes/goal.routes.js';
+import { userRouter } from './routes/user.routes.js';
 
 const app = express();
 dotenv.config();
@@ -15,7 +16,8 @@ connectDb();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use('/api/goals', router);
+app.use('/api/goals', goalRouter);
+app.use('/api/users', userRouter);
 app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;

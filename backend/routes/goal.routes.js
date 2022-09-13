@@ -1,13 +1,14 @@
 import express from 'express';
-export const router = express.Router();
 import * as goalsController from '../controllers/goal.controller.js';
 
-router
+export const goalRouter = express.Router();
+
+goalRouter
   .route('/')
   .get(goalsController.fetchGoals)
   .post(goalsController.createGoal);
 
-router
+goalRouter
   .route('/:id')
   .get(goalsController.fetchGoal)
   .delete(goalsController.deleteGoal)
