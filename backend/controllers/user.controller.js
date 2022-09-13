@@ -24,11 +24,47 @@ export const registerUser = async (req, res) => {
   });
 
   if (user) {
-    res.status(201).json({ _id: user.id, name: user.name, email: user.email });
+    res.status(201).json({
+      _id: user.id,
+      name: user.name,
+      email: user.email,
+      token: generateToken(user._id),
+    });
   } else {
     res.status(400).json({ message: 'invalid user data' });
   }
 };
 
-export const loginUser = async (req, res) => {};
-export const getUserDetails = async (req, res) => {};
+export const loginUser = async (req, res) => {
+  const { email, password } = req.body;
+  console.log(email, password);
+
+  const user = await User.findOne({ email });
+
+  console.log(user);
+
+  const validateUser = await bcrypt.compare(password, user.password);
+
+  if (user && validateUser) {
+    res.status(200).json({
+      _id: user.id,
+      name: user.name,
+      email: user.email,
+      token: generateToken(user._id),
+    });
+  } else {
+    res.status(403).json({ message: 'invalid login credentials' });
+  }
+};
+
+export const getUserDetails = async (req, res) => {
+  const { _id, name, email } = await User.findById(req.user.id);
+
+  res.status(200).json({ id: _id, name, email });
+};
+
+const generateToken = (id) => {
+  return jwt.sign({ id }, process.env.JWT_SECRET, {
+    expiresIn: '30d',
+  });
+};
