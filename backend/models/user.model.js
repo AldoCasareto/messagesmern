@@ -16,7 +16,7 @@ const userSchema = new Schema(
       required: [true, 'please add a password'],
     },
   },
-  { typestamps: true }
+  { timestamps: true }
 );
 
 export default model('User', userSchema);
