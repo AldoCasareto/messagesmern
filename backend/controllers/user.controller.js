@@ -5,6 +5,8 @@ import User from '../models/user.model.js';
 export const registerUser = async (req, res) => {
   const { name, email, password } = req.body;
 
+  console.log(`req.body = `, req.body);
+
   if (!name || !email || !password) {
     res.status(400).json({ message: 'please add all fields' });
   }
