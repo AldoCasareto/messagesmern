@@ -32,8 +32,9 @@ const Register = () => {
     if (isSuccess || user) {
       navigate('/');
       toast.success(message);
-      dispatch(reset());
     }
+
+    dispatch(reset());
   }, [user, isError, isSuccess, message, navigate, dispatch]);
 
   const handleChange = (e) => {
