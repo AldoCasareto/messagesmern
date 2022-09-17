@@ -11,6 +11,5 @@ goalRouter
 
 goalRouter
   .route('/:id')
-  .get(goalsController.fetchGoal)
   .delete(protect, goalsController.deleteGoal)
   .put(protect, goalsController.updateGoal);

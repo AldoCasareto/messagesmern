@@ -26,19 +26,22 @@ export const fetchGoal = async (req, res) => {};
 
 export const deleteGoal = async (req, res) => {
   const { id } = req.params;
+  console.log('id', id);
   const goal = await Goal.findById(id);
 
+  console.log(`goal = `, goal);
+
   if (!goal) {
-    res.status(400).json({ message: 'goal not found' });
+    return res.status(400).json({ message: 'goal not found' });
   }
 
-  const user = await User.findById(req.user.id);
+  // const user = await User.findById(req.user.id);
 
-  if (!user) {
+  if (!req.user) {
     return res.status(401).json({ message: 'user not found' });
   }
 
-  if (goal.user.toString() !== user.id) {
+  if (goal.user.toString() !== req.user.id) {
     return res.status(401).json({ message: 'user not authorized' });
   }
 
@@ -55,13 +58,13 @@ export const updateGoal = async (req, res) => {
     res.status(400).json({ message: 'goal not found' });
   }
 
-  const user = await User.findById(req.user.id);
+  // const user = await User.findById(req.user.id);
 
-  if (!user) {
+  if (!req.user.id) {
     return res.status(401).json({ message: 'user not found' });
   }
 
-  if (goal.user.toString() !== user.id) {
+  if (goal.user.toString() !== req.user.id) {
     return res.status(401).json({ message: 'user not authorized' });
   }
 

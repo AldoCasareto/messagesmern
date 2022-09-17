@@ -60,9 +60,9 @@ export const loginUser = async (req, res) => {
 };
 
 export const getUserDetails = async (req, res) => {
-  const { _id, name, email } = await User.findById(req.user.id);
+  // const { _id, name, email } = await User.findById(req.user.id);
 
-  res.status(200).json({ id: _id, name, email });
+  return await res.status(200).json(req.user);
 };
 
 const generateToken = (id) => {

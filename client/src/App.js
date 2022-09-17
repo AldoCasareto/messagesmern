@@ -6,6 +6,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import GoalForm from './components/GoalForm';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
             <Route path='/' element={<Dashboard />} />
             <Route path='/login' element={<Login />} />
             <Route path='/registration' element={<Register />} />
+            <Route path='/create' element={<GoalForm />} />
           </Routes>
         </div>
       </BrowserRouter>
